@@ -236,19 +236,31 @@ body {
 }
 
 .main-container {
-    width: 1100px; 
-    height: 750px;
-    background: white; 
-    border-radius: 20px;
-    display: none; 
-    overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 95%;           /* Use percentage instead of fixed px */
+    max-width: 1100px;    /* Keeps it from getting too wide on desktop */
+    height: auto;         /* Allow height to grow with content */
+    min-height: 80vh;
+    display: none;        /* Controlled by JS */
+    flex-direction: row;  /* Side-by-side on desktop */
+    margin: 20px auto;
+    position: relative;
+    top: 0; left: 0; transform: none; /* Remove absolute centering for better mobile scrolling */
 }
+
+/* Responsive Dashboard Stack */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column; /* Stack sidebar on top of content */
+        width: 100%;
+        border-radius: 0;     /* Full screen look on mobile */
+    }
+    .sidebar {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+
 
 .sidebar { width: 260px; background: var(--purple); color: white; padding: 40px 20px; display: flex; flex-direction: column; }
 .brand { display: flex; align-items: center; gap: 15px; margin-bottom: 50px; }
@@ -412,15 +424,6 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 768px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .contact-info p {
-        justify-content: center;
-    }
-}
 
 :root {
     --bg: #05000a;
@@ -1119,67 +1122,37 @@ body {
     transform: scale(0.95);
 }
 
-/* --- UNIVERSAL RESPONSIVENESS --- */
+.menu-grid {
+    display: grid;
+    /* This ensures cards are at least 140px, but fill the space otherwise */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+    gap: 15px;
+    padding: 10px;
+}
 
-/* 1. Header & Navigation */
-@media (max-width: 768px) {
-    header {
+@media (max-width: 400px) {
+    .menu-card {
+        padding: 15px; /* Smaller padding to save space */
+    }
+    .hero-title {
+        font-size: 2.5rem; /* Shrink text so it doesn't wrap weirdly */
+    }
+}
+
+.main-content input, 
+.login-field input, 
+.form-input {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+    appearance: none;           /* Removes default mobile styling */
+}
+
+@media (max-width: 600px) {
+    .choice-container {
         flex-direction: column;
         gap: 15px;
-        padding: 15px;
     }
-
-    .brand-container {
-        justify-content: center;
-    }
-
-    /* Stack buttons for easier tapping */
-    header div[style*="display:flex"] {
+    .choice-btn {
         width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-}
-
-/* 2. Product Grid Adaptation */
-@media (max-width: 480px) {
-    .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Smaller cards for small phones */
-        gap: 15px;
-        padding: 0 10px 80px;
-    }
-
-    .product img {
-        height: 180px; /* Shorter images on mobile */
-    }
-
-    .p-name {
-        font-size: 0.9rem;
-    }
-}
-
-/* 3. Attendance / Registration Dashboard */
-@media (max-width: 992px) {
-    .attendance-container {
-        flex-direction: column; /* Stacks Form on top of Table */
-        align-items: center;
-    }
-
-    .registration-box {
-        flex: 1 1 auto;
-        width: 100%;
-        max-width: 500px;
-    }
-
-    .table-card {
-        width: 100%;
-    }
-}
-
-/* 4. Cart Sidebar for Mobile */
-@media (max-width: 400px) {
-    #cart-sidebar {
-        width: 100%; /* Full screen cart on very small devices */
-        right: -100%;
+        padding: 40px 20px; /* Make them big "tappable" blocks */
     }
 }
