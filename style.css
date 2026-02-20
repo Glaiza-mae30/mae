@@ -1119,33 +1119,67 @@ body {
     transform: scale(0.95);
 }
 
-/* --- Desktop Default --- */
-.input-grid {
-    display: flex;
-    gap: 20px;
-}
+/* --- UNIVERSAL RESPONSIVENESS --- */
 
-.field {
-    width: 25%; /* Hati sa apat sa desktop */
-}
-
-/* --- Mobile Logic (HINDI na kailangan galawin ang HTML) --- */
-@media (max-width: 600px) {
-    .input-grid {
-        flex-direction: column; /* Gagawing vertical ang mga fields */
-    }
-    
-    .field {
-        width: 100%; /* Sasakupin na ang buong width ng screen */
+/* 1. Header & Navigation */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
     }
 
-    .brand-name {
-        font-size: 1.5rem; /* Liliitan ang font para kasya sa screen */
+    .brand-container {
+        justify-content: center;
     }
-    
-    .nav-links {
-        display: none; /* Pwede mong itago ang menu at palitan ng Hamburger icon */
+
+    /* Stack buttons for easier tapping */
+    header div[style*="display:flex"] {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 }
 
+/* 2. Product Grid Adaptation */
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Smaller cards for small phones */
+        gap: 15px;
+        padding: 0 10px 80px;
+    }
 
+    .product img {
+        height: 180px; /* Shorter images on mobile */
+    }
+
+    .p-name {
+        font-size: 0.9rem;
+    }
+}
+
+/* 3. Attendance / Registration Dashboard */
+@media (max-width: 992px) {
+    .attendance-container {
+        flex-direction: column; /* Stacks Form on top of Table */
+        align-items: center;
+    }
+
+    .registration-box {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .table-card {
+        width: 100%;
+    }
+}
+
+/* 4. Cart Sidebar for Mobile */
+@media (max-width: 400px) {
+    #cart-sidebar {
+        width: 100%; /* Full screen cart on very small devices */
+        right: -100%;
+    }
+}
