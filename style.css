@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 :root {
     --bg: #05000a;
     --primary: #9d4edd;
@@ -1117,4 +1118,5 @@ body {
 .back-btn:active {
     transform: scale(0.95);
 }
+
 
