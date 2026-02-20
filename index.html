@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PurpleSip Enterprise | Cafe & Registry</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="gatewaySection" class="auth-wrapper">
+        <div class="glass-card auth-card gateway-main">
+            <h1 class="brand-name">PurpleSip</h1>
+            <p class="subtitle">ENTERPRISE ECOSYSTEM v10.0</p>
+            <div class="gateway-options choice-container">
+                <button class="choice-btn attend-btn" onclick="goToAttendance()">
+                    <i class="fas fa-user-check"></i> REGISTRY
+                </button>
+                <button class="choice-btn pos-btn" onclick="goToLogin()">
+                    <i class="fas fa-cash-register"></i> POS SYSTEM
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container" id="attendanceApp" style="display: none;">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fas fa-glass-martini-alt"></i>
+                <div class="brand-info">
+                    <h1>PURPLESIP</h1>
+                    <span>Member Hub</span>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <p class="section-label">Management</p>
+                <div class="nav-item active" id="nav-registry">
+                    <i class="fas fa-user-plus"></i> Member Registry
+                </div>
+                <div class="nav-item" id="nav-archive">
+                    <i class="fas fa-folder-open"></i> Customer Logs
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer-action" style="margin-top: auto; padding-top: 20px;">
+                <button class="back-btn" onclick="location.reload()">
+                    <i class="fas fa-arrow-left"></i> EXIT TO GATEWAY
+                </button>
+                <div class="sidebar-footer" style="margin-top: 15px; text-align: center; font-size: 0.65rem; opacity: 0.5;">
+                    <p>Digital System v10.0</p>
+                    <p>Database: PurpleSip Local</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-titles">
+                    <h2 id="page-title">Membership Portal</h2>
+                    <p id="page-desc">Official enrollment database for PurpleSip VIP Members.</p>
+                </div>
+                <div class="system-status">
+                    <span class="dot"></span> System Secured
+                </div>
+            </header>
+
+            <section class="form-section" id="registry-form">
+                <div class="input-grid">
+                    <div class="field"><label>Last Name *</label><input type="text" id="lastName" class="req" placeholder="Dela Cruz"></div>
+                    <div class="field"><label>First Name *</label><input type="text" id="firstName" class="req" placeholder="Juan"></div>
+                    <div class="field"><label>Middle Initial</label><input type="text" id="middleName" maxlength="1" placeholder="P."></div>
+                    <div class="field"><label>Suffix</label><input type="text" id="suffix" placeholder="e.g. Jr."></div>
+                    <div class="field full"><label>Membership Level & Branch *</label><input type="text" id="section" class="req" placeholder="e.g. VIP - Mariveles Branch"></div>
+                </div>
+                <div class="form-buttons">
+                    <button id="addBtn" class="btn-main">Execute Registration</button>
+                    <button id="clearBtn" class="btn-sub">Reset Form</button>
+                </div>
+            </section>
+
+            <section class="records-section">
+                <div class="records-header">
+                    <h3><i class="fas fa-database"></i> Member Database</h3>
+                    <div class="counter">Records: <span id="count">0</span></div>
+                </div>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name, level, or date...">
+                </div>
+                <div class="records-list-wrapper">
+                    <ul id="attendanceList"></ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="loginSection" class="auth-wrapper" style="display: none;">
+        <div class="glass-card auth-card login-premium-card">
+            <h1 class="brand-name">PurpleSip</h1>
+            <p class="subtitle" id="auth-subtitle">ENTERPRISE POS v10.0</p>
+            <div id="auth-fields" class="input-group">
+                <div class="login-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="USERNAME" autocomplete="off">
+                </div>
+                <div class="login-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="PASSWORD">
+                </div>
+            </div>
+            <div id="forgot-link" class="auth-links">
+                <a href="#" onclick="handleForgotPassword()">Forgot Password?</a>
+            </div>
+            <button id="auth-btn" class="btn-glow login-trigger" onclick="login()">LOGIN</button>
+            <div class="register-group">
+                <p id="toggle-text">Don't have an account? <a href="#" onclick="showRegisterUI()">Register</a></p>
+            </div>
+            <div class="auth-footer-action">
+                <button class="btn-return-gateway" onclick="location.reload()">
+                    <i class="fas fa-chevron-left"></i> RETURN TO MAIN GATEWAY
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainApp" class="app-container" style="display: none;">
+        <div class="nav-logo">PurpleSip<span class="dot">.</span></div>
+        <nav class="nav">
+            <div class="nav-links">
+                <button onclick="showPage('welcome')"><i class="fas fa-home"></i> HOME</button>
+                <button onclick="showPage('about')"><i class="fas fa-book-open"></i> STORY</button>
+                <button onclick="showPage('menu')"><i class="fas fa-utensils"></i> MENU</button>
+                <button onclick="showPage('bestSellers')"><i class="fas fa-fire"></i> TRENDS</button>
+                <button onclick="showPage('locations')"><i class="fas fa-map-marker-alt"></i> LOCATIONS</button>
+                <button onclick="showPage('contact')"><i class="fas fa-envelope"></i> CONTACT</button>
+                <button class="btn-exit-nav" onclick="logout()"><i class="fas fa-sign-out-alt"></i> LOGOUT</button>
+            </div>
+            <div class="nav-actions">
+                <button onclick="openCart()" class="nav-cart">
+                    <i class="fas fa-shopping-cart"></i> CART [<span id="count-cart">0</span>]
+                </button>
+            </div>
+        </nav>
+
+        <div class="app-content">
+            <section id="welcome" class="page hero-page">
+                <div class="hero-center">
+                    <span class="badge">EST. 2026</span>
+                    <h1 class="hero-title">Elevate Your <br><span class="text-gradient">Daily Sip.</span></h1>
+                    <p class="hero-sub">Premium Brewery & Gourmet Kitchen Management.</p>
+                    <button class="btn-glow order-trigger" onclick="showPage('menu')">START ORDERING</button>
+                </div>
+            </section>
+
+            <section id="about" class="page">
+                <div class="section-header centered"><h2 class="text-gradient">Our Story</h2></div>
+                <div class="contact-card-wrap">
+                    <div class="glass-card contact-inner story-box">
+                        <h3 class="story-subtitle">Brewing Excellence Since 2026</h3>
+                        <p>PurpleSip was born from a simple passion: to redefine the coffee experience by blending premium craftsmanship with an inclusive atmosphere.</p>
+                        <p>From our signature Sea Salt Latte to our curated selection of gourmet snacks, every detail is meticulously crafted.</p>
+                        <div class="stats-container">
+                            <div class="stat-item"><strong>100+</strong><small>Premium Flavors</small></div>
+                            <div class="stat-item"><strong>12</strong><small>Branches</small></div>
+                            <div class="stat-item"><strong>10k+</strong><small>Sippers</small></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <main id="menu" class="page">
+                <div class="section-header centered">
+                    <h2 class="text-gradient">Our Menu</h2>
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInputPOS" class="search-bar" placeholder="Search your favorite drink..." onkeyup="searchMenu()">
+                    </div>
+                </div>
+                <div id="menuContainer"></div>
+            </main>
+
+            <section id="locations" class="page">
+                <div class="section-header centered"><h2 class="text-gradient">Our Mariveles Branches</h2></div>
+                <div class="menu-grid">
+                    <div class="glass-card menu-card branch-card">
+                        <i class="fas fa-map-marked-alt branch-icon"></i>
+                        <h4>FAB Main Branch</h4>
+                        <p class="branch-addr">Freeport Area of Bataan, Mariveles</p>
+                        <span class="sec-badge">Open 24/7</span>
+                    </div>
+                    <div class="glass-card menu-card branch-card">
+                        <i class="fas fa-map-marked-alt branch-icon"></i>
+                        <h4>Poblacion Express</h4>
+                        <p class="branch-addr">Public Market, Mariveles Poblacion</p>
+                        <span class="sec-badge">6AM - 10PM</span>
+                    </div>
+                    <div class="glass-card menu-card branch-card">
+                        <i class="fas fa-map-marked-alt branch-icon"></i>
+                        <h4>Alas-asin Sanctuary</h4>
+                        <p class="branch-addr">National Road, Alas-asin, Mariveles</p>
+                        <span class="sec-badge">8AM - 11PM</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="bestSellers" class="page">
+                <div class="section-header centered"><h2 class="text-gradient">🔥 Hall of Fame</h2></div>
+                <div id="bestSellersContainer"></div>
+            </section>
+
+            <section id="contact" class="page">
+                <div class="section-header centered"><h2 class="text-gradient">Connect with Us</h2></div>
+                <div class="contact-card-wrap">
+                    <div class="glass-card contact-inner">
+                        <div class="contact-grid">
+                            <div class="contact-info">
+                                <h3>Get in Touch</h3>
+                                <p><i class="fab fa-facebook"></i> PurpleSip.Brewery</p>
+                                <p><i class="fab fa-instagram"></i> @ThePurpleSip_Official</p>
+                                <p><i class="fas fa-envelope"></i> hello@purplesip.co</p>
+                            </div>
+                            <div class="contact-form-container">
+                                <form id="contactForm" onsubmit="handleContact(event)">
+                                    <input type="text" placeholder="Full Name" required class="form-input">
+                                    <textarea rows="4" placeholder="How can we help you?" required class="form-input"></textarea>
+                                    <button type="submit" class="btn-glow">SUBMIT FEEDBACK</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">PurpleSip<span>.</span></div>
+                <p>&copy; 2026 PurpleSip Brewery & Kitchen. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="sizeModal" class="modal">
+        <div class="glass-card modal-box">
+            <h2 id="sizeTargetName"></h2>
+            <div class="size-btns">
+                <button class="size-btn" id="btnSmall" onclick="selectSize('Small', 0, 'btnSmall')">Small</button>
+                <button class="size-btn" id="btnMedium" onclick="selectSize('Medium', 20, 'btnMedium')">Medium (+20)</button>
+                <button class="size-btn" id="btnLarge" onclick="selectSize('Large', 35, 'btnLarge')">Large (+35)</button>
+            </div>
+            <button class="btn-glow" onclick="confirmAdd()">ADD TO ORDER</button>
+            <button onclick="closeModal('sizeModal')" class="btn-cancel">Cancel</button>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="glass-card modal-box">
+            <h2 class="text-gradient">Review Order</h2>
+            <div id="cartList" class="order-list"></div>
+            <div class="total-bar">TOTAL: ₱<span id="totalPrice">0</span></div>
+            <button class="btn-glow" onclick="checkout()">PLACE ORDER</button>
+            <button onclick="closeModal('cartModal')" class="btn-cancel">Back</button>
+        </div>
+    </div>
+
+    <div id="receiptModal" class="modal">
+        <div class="receipt-paper">
+            <div class="receipt-header"><h3>PurpleSip Café</h3><p>Premium Brewery & Kitchen</p></div>
+            <div id="receiptItems"></div>
+            <div class="receipt-total-line"><span>---- --TOTAL AMOUNT-------</span><span id="receiptTotal"></span></div>
+            <div class="receipt-footer">
+                <p>Transaction ID: <span id="receiptTransactionId"></span></p>
+                <p>Thank you for sipping!</p>
+            </div>
+            <button class="btn-glow receipt-done" onclick="closeReceipt()">DONE</button>
+        </div>
+    </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
