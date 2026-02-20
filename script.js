@@ -566,7 +566,7 @@ $(document).ready(function() {
         studentDB.push({ ...newStudent, fullName: fullName });
         saveAndRender();
 
-        Swal.fire({ icon: 'success', title: 'Registered', text: 'Student added to database.', timer: 1500, showConfirmButton: false });
+        Swal.fire({ icon: 'success', title: 'Registered', text: 'added to database.', timer: 1500, showConfirmButton: false });
         $('input').val('').removeClass('error-border');
         $('#lastName').focus();
     });
@@ -636,3 +636,4 @@ window.handleContact = (event) => {
     });
     event.target.reset();
 };
+
