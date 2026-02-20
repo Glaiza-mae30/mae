@@ -1119,5 +1119,33 @@ body {
     transform: scale(0.95);
 }
 
+/* --- Desktop Default --- */
+.input-grid {
+    display: flex;
+    gap: 20px;
+}
+
+.field {
+    width: 25%; /* Hati sa apat sa desktop */
+}
+
+/* --- Mobile Logic (HINDI na kailangan galawin ang HTML) --- */
+@media (max-width: 600px) {
+    .input-grid {
+        flex-direction: column; /* Gagawing vertical ang mga fields */
+    }
+    
+    .field {
+        width: 100%; /* Sasakupin na ang buong width ng screen */
+    }
+
+    .brand-name {
+        font-size: 1.5rem; /* Liliitan ang font para kasya sa screen */
+    }
+    
+    .nav-links {
+        display: none; /* Pwede mong itago ang menu at palitan ng Hamburger icon */
+    }
+}
 
 
